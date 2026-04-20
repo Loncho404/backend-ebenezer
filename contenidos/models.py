@@ -113,7 +113,7 @@ class CalendarioDelMes(models.Model):
     )
 
     titulo = models.CharField(max_length=150)
-    imagen = models.ImageField(upload_to='calendarios/')
+    imagen = models.CharField(max_length=255)
     mes = models.PositiveSmallIntegerField(choices=MESES)
     anio = models.PositiveIntegerField()
     activo = models.BooleanField(default=False)
