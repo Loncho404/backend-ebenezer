@@ -5,6 +5,7 @@ from .serializers import CategoriaSerializer, ContenidoSerializer, ComentarioSer
 from .permissions import IsAdminUserRole
 from rest_framework.exceptions import PermissionDenied
 from django.http import FileResponse, Http404
+from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 
@@ -105,7 +106,11 @@ class ContenidoPorTemaDetailAPIView(generics.RetrieveAPIView):
 
     def get_object(self):
         tema_id = self.kwargs['tema_id']
-        return Contenido.objects.get(tema_id=tema_id, activo=True)
+        return get_object_or_404(
+            Contenido.objects.select_related('tema', 'categoria'),
+            tema_id=tema_id,
+            activo=True,
+        )
 
 class DescargarPDFAPIView(APIView):
     permission_classes = [IsAuthenticated]

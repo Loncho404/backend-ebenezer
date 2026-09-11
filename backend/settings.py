@@ -30,6 +30,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = env_bool("DEBUG", True)
+
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get("SECRET_KEY")
 if not SECRET_KEY:
@@ -37,9 +40,6 @@ if not SECRET_KEY:
         SECRET_KEY = "dev-insecure-change-me"
     else:
         raise ImproperlyConfigured("SECRET_KEY is required when DEBUG=False")
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env_bool("DEBUG", True)
 
 ALLOWED_HOSTS = env_list("ALLOWED_HOSTS", ["localhost", "127.0.0.1"])
 
@@ -179,6 +179,9 @@ CORS_ALLOWED_ORIGINS = env_list(
     "CORS_ALLOWED_ORIGINS",
     ["http://localhost:3000", "http://127.0.0.1:3000"],
 )
+
+# Permite que el front lea el nombre del archivo en descargas de PDF
+CORS_EXPOSE_HEADERS = ["Content-Disposition"]
 
 CSRF_TRUSTED_ORIGINS = env_list(
     "CSRF_TRUSTED_ORIGINS",

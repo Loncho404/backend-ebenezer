@@ -61,9 +61,11 @@ class NivelCorderitoSerializer(serializers.ModelSerializer):
 
 
 class TemaCorderitoSerializer(serializers.ModelSerializer):
+    nivel_nombre = serializers.CharField(source='nivel.nombre', read_only=True)
+
     class Meta:
         model = TemaCorderito
-        fields = ['id', 'nombre', 'orden', 'activo', 'nivel']
+        fields = ['id', 'nombre', 'orden', 'activo', 'nivel', 'nivel_nombre']
 
 
 class ContenidoTemaSerializer(serializers.ModelSerializer):
